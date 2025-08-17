@@ -1,14 +1,15 @@
-import React from "react";
 import { TamaguiProvider } from "tamagui";
+import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { config } from "../tamagui.config";
-import AppNavigator from "./navigation/AppNavigator";
 
-export default function App() {
+export default function RootLayout() {
 	return (
 		<TamaguiProvider config={config} defaultTheme="light">
 			<StatusBar style="auto" />
-			<AppNavigator />
+			<Stack screenOptions={{ headerShown: false }}>
+				<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+			</Stack>
 		</TamaguiProvider>
 	);
 }

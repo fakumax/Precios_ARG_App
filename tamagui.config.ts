@@ -1,66 +1,39 @@
+import { defaultConfig } from "@tamagui/config/v4";
 import { createTamagui } from "tamagui";
 
+// Extend default v4 config with alias tokens used in the app ($sm/$md/$lg)
 export const config = createTamagui({
+	...defaultConfig,
 	tokens: {
+		...defaultConfig.tokens,
 		size: {
-			true: 1,
-			0: 0,
-			sm: 8,
-			md: 12,
-			lg: 20,
+			...defaultConfig.tokens.size,
+			$sm: 12,
+			$md: 16,
+			$lg: 20,
 		},
 		space: {
-			true: 1,
-			0: 0,
-			sm: 4,
-			md: 8,
-			lg: 12,
+			...defaultConfig.tokens.space,
+			$sm: 8,
+			$md: 16,
+			$lg: 24,
 		},
 		radius: {
-			true: 0,
-			0: 0,
-			none: 0,
-			sm: 3,
+			...defaultConfig.tokens.radius,
+			$sm: 6,
+			$md: 10,
+			$lg: 14,
 		},
-		zIndex: {
-			0: 0,
-			1: 100,
-			2: 200,
-		},
-		color: { white: "#fff", black: "#000" },
-	},
-	themes: {
-		light: {
-			bg: "#f2f2f2",
-			color: "#fff",
-		},
-		dark: {
-			bg: "#111",
-			color: "#000",
-		},
-		dark_blue: {
-			bg: "darkblue",
-			color: "#fff",
-		},
-	},
-	media: {
-		sm: { maxWidth: 860 },
-		gtSm: { minWidth: 861 },
-		short: { maxHeight: 820 },
-		hoverNone: { hover: "none" },
-		pointerCoarse: { pointer: "coarse" },
-	},
-	shorthands: {
-		px: "paddingHorizontal",
 	},
 	settings: {
-		disableSSR: true,
-		allowedStyleValues: "somewhat-strict-web",
+		...defaultConfig.settings,
+		// Recommended for RN parity per v4 docs
+		styleCompat: "react-native",
 	},
 });
 
-type OurConfig = typeof config;
+type CustomConfig = typeof config;
 
 declare module "tamagui" {
-	interface TamaguiCustomConfig extends OurConfig {}
+	interface TamaguiCustomConfig extends CustomConfig {}
 }
